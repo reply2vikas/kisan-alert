@@ -155,10 +155,12 @@ Reply ONLY with valid JSON, no markdown:
 Rules: every field except map_label_en in the farmer's own language. map_label_en is a short English label for a map (e.g. "Soybean — Yellow Mosaic Virus"). speak_text = warm, spoken-style, <80 words, actionable, no jargon; assumes a low-literacy listener. If the image is unclear or not a crop, say so honestly in speak_text and set confidence "low". Prefer remedies costing <₹200 and locally available. Never invent pesticide dosages; give label-rate guidance and point to the nearest KVK.`;
 
 async function callGemini(lang, pin) {
-  const key = CFG.GEMINI_API_KEY;
-  if (!key || key.includes("PASTE_YOUR")) throw new Error("No Gemini key in config.js. Using sample — add your AI Studio key for live analysis.");
+  const key = (CFG.GEMINI_API_KEY || "").trim();
+  // Valid Gemini keys start with "AIza" (standard) or "AQ." (new auth key bound to a service account).
+  const looksFake = !key || key.includes("PASTE_YOUR") || key.includes("your-ai-studio-key") || !(key.startsWith("AIza") || key.startsWith("AQ.")) || key.length < 20;
+  if (looksFake) throw new Error("No valid Gemini key set. Get one at aistudio.google.com/app/apikey (starts with 'AIza' or 'AQ.'). Showing sample for now.");
   const model = CFG.GEMINI_MODEL || "gemini-2.0-flash";
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
   const ctx = buildContext(pin);
   const userQ = ($("query").value || state.voiceText || "").trim();
@@ -173,15 +175,22 @@ async function callGemini(lang, pin) {
     parts.push({ inline_data: { mime_type: state.audioMime, data: state.audioBase64 } });
   }
 
-  const res = await fetch(url, {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
-      contents: [{ parts }],
-      generationConfig: { temperature: 0.3, responseMimeType: "application/json" },
-    }),
+  const body = JSON.stringify({
+    system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+    contents: [{ parts }],
+    generationConfig: { temperature: 0.3, responseMimeType: "application/json" },
   });
-  if (!res.ok) throw new Error("Gemini API " + res.status + ": " + (await res.text()).slice(0, 180));
+  // Exponential backoff with jitter for transient 429 (rate limit) / 503.
+  let res;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": key }, body });
+    if (res.status !== 429 && res.status !== 503) break;
+    if (attempt < 2) { setStatus("Rate limited — retrying in a moment…"); await new Promise(r => setTimeout(r, 1500 * (2 ** attempt) + Math.random() * 400)); }
+  }
+  if (!res.ok) {
+    if (res.status === 429) throw new Error("Gemini quota/rate limit (429). Free-tier cap hit — wait a minute, enable billing, or just use demo mode. Showing sample.");
+    throw new Error("Gemini API " + res.status + ": " + (await res.text()).slice(0, 160));
+  }
   const data = await res.json();
   const txt = data?.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
   return JSON.parse(txt);
@@ -233,6 +242,10 @@ function showAdvisory(a, pin) {
 /* ---------- diagnose ---------- */
 $("diagnoseBtn").addEventListener("click", async () => {
   const lang = $("lang").value, pin = $("pincode").value;
+  if (DEMO_MODE) {  // demo mode never calls the API — cannot 429 on stage
+    const g = goldenAdvisory(lang); showAdvisory(g, pin);
+    setStatus("Demo mode — cached result (no API)."); autoSpeak(g, lang); return;
+  }
   setStatus("Analyzing photo + voice with Gemini…");
   $("diagnoseBtn").disabled = true;
   try {
