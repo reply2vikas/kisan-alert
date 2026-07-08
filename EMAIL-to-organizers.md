@@ -20,7 +20,7 @@ Everything is finished and working. Details and links below.
 - **Team:** Solo
 - **Live demo (works for anyone):** https://reply2vikas.github.io/kisan-alert/
 - **Demo video (90s):** https://youtu.be/3-IpT-83qEI
-- **Full video (backup, Google Drive):** [paste your Drive link — set sharing to "Anyone with the link → Viewer"]
+- **Full video (backup, Google Drive):** https://drive.google.com/file/d/1nIAtibhp-ZCGxXmKXcNkoNMii9RNLT7v/view?usp=sharing
 - **GitHub repo (public):** https://github.com/reply2vikas/kisan-alert
 - **Pitch deck (PDF):** attached to this email _(also: [add Google Drive link if you host it])_
 
