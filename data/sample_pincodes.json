@@ -1,0 +1,70 @@
+{
+  "_comment": "Seeded satellite + weather context, pre-fetched so the demo never depends on a live Earth Engine / weather call. In production these fields come from Google Earth Engine (NDVI, soil moisture) + BigQuery/IMD weather. Values here are realistic samples for 5 pincodes.",
+  "pincodes": {
+    "144001": {
+      "district": "Jalandhar, Punjab",
+      "lat": 31.326,
+      "lng": 75.576,
+      "ndvi": 0.42,
+      "soil_moisture_pct": 18,
+      "rainfall_7d_mm": 2,
+      "temp_c": 34,
+      "humidity_pct": 71,
+      "primary_crop": "Wheat",
+      "nearest_krishi_kendra": "KVK Jalandhar, Nurmahal Road",
+      "local_scheme": "Punjab Pani Bachao Paisa Kamao (irrigation subsidy)"
+    },
+    "413512": {
+      "district": "Latur, Maharashtra",
+      "lat": 18.408,
+      "lng": 76.564,
+      "ndvi": 0.31,
+      "soil_moisture_pct": 11,
+      "rainfall_7d_mm": 0,
+      "temp_c": 37,
+      "humidity_pct": 44,
+      "primary_crop": "Soybean",
+      "nearest_krishi_kendra": "KVK Latur, Ausa Road",
+      "local_scheme": "Jalyukt Shivar (water conservation)"
+    },
+    "522001": {
+      "district": "Guntur, Andhra Pradesh",
+      "lat": 16.306,
+      "lng": 80.436,
+      "ndvi": 0.58,
+      "soil_moisture_pct": 33,
+      "rainfall_7d_mm": 41,
+      "temp_c": 31,
+      "humidity_pct": 82,
+      "primary_crop": "Chilli",
+      "nearest_krishi_kendra": "KVK Guntur, Lam Farm",
+      "local_scheme": "Rythu Bharosa (input support)"
+    },
+    "231001": {
+      "district": "Mirzapur, Uttar Pradesh",
+      "lat": 25.146,
+      "lng": 82.569,
+      "ndvi": 0.49,
+      "soil_moisture_pct": 22,
+      "rainfall_7d_mm": 8,
+      "temp_c": 33,
+      "humidity_pct": 68,
+      "primary_crop": "Paddy",
+      "nearest_krishi_kendra": "KVK Mirzapur, Barkachha",
+      "local_scheme": "UP Free Boring Scheme (tube well)"
+    },
+    "638001": {
+      "district": "Erode, Tamil Nadu",
+      "lat": 11.341,
+      "lng": 77.717,
+      "ndvi": 0.61,
+      "soil_moisture_pct": 29,
+      "rainfall_7d_mm": 15,
+      "temp_c": 32,
+      "humidity_pct": 74,
+      "primary_crop": "Turmeric",
+      "nearest_krishi_kendra": "KVK Erode, Myrada",
+      "local_scheme": "TN Micro Irrigation (drip subsidy)"
+    }
+  }
+}

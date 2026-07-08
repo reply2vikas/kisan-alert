@@ -1,0 +1,15 @@
+{
+  "_comment": "Pre-seeded farmer reports so the MP dashboard looks alive from second one. The live demo just ADDS one new pin to this cluster. Coordinates are spread across one constituency (Latur, MH) to show a believable disease hotspot.",
+  "reports": [
+    { "id": "r001", "crop": "Soybean", "issue": "Yellow Mosaic Virus", "severity": "high", "lat": 18.401, "lng": 76.560, "village": "Ausa", "ts": "2026-07-08T06:12:00Z" },
+    { "id": "r002", "crop": "Soybean", "issue": "Yellow Mosaic Virus", "severity": "high", "lat": 18.418, "lng": 76.572, "village": "Killari", "ts": "2026-07-08T06:40:00Z" },
+    { "id": "r003", "crop": "Soybean", "issue": "Yellow Mosaic Virus", "severity": "medium", "lat": 18.395, "lng": 76.548, "village": "Nilanga", "ts": "2026-07-08T07:05:00Z" },
+    { "id": "r004", "crop": "Cotton", "issue": "Pink Bollworm", "severity": "medium", "lat": 18.432, "lng": 76.589, "village": "Udgir", "ts": "2026-07-08T07:22:00Z" },
+    { "id": "r005", "crop": "Soybean", "issue": "Yellow Mosaic Virus", "severity": "high", "lat": 18.409, "lng": 76.566, "village": "Ausa", "ts": "2026-07-08T07:48:00Z" },
+    { "id": "r006", "crop": "Soybean", "issue": "Charcoal Rot", "severity": "low", "lat": 18.388, "lng": 76.541, "village": "Nilanga", "ts": "2026-07-08T08:01:00Z" },
+    { "id": "r007", "crop": "Soybean", "issue": "Yellow Mosaic Virus", "severity": "high", "lat": 18.421, "lng": 76.575, "village": "Killari", "ts": "2026-07-08T08:19:00Z" },
+    { "id": "r008", "crop": "Pigeon Pea", "issue": "Wilt", "severity": "medium", "lat": 18.377, "lng": 76.533, "village": "Shirur", "ts": "2026-07-08T08:33:00Z" },
+    { "id": "r009", "crop": "Soybean", "issue": "Yellow Mosaic Virus", "severity": "medium", "lat": 18.414, "lng": 76.569, "village": "Ausa", "ts": "2026-07-08T08:52:00Z" },
+    { "id": "r010", "crop": "Soybean", "issue": "Yellow Mosaic Virus", "severity": "high", "lat": 18.406, "lng": 76.562, "village": "Ausa", "ts": "2026-07-08T09:10:00Z" }
+  ]
+}

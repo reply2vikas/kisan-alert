@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kisan Alert — Pitch Deck</title>
+<style>
+  :root{
+    --forest:#2C5F2D; --forest-dk:#1d3f1e; --moss:#97BC62; --moss-lt:#e9f1dd;
+    --cream:#F7F8F4; --ink:#1c2b1e; --muted:#5c6b5e; --amber:#f6a609; --red:#d64545; --white:#fff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:Calibri,Arial,system-ui,sans-serif;color:var(--ink);background:#0e0e10}
+  .deck{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory}
+  .slide{height:100vh;scroll-snap-align:start;position:relative;display:flex;flex-direction:column;
+    justify-content:center;padding:7vh 8vw;overflow:hidden}
+  h1{font-family:Cambria,Georgia,serif}
+  h2{font-family:Cambria,Georgia,serif;font-size:40px;color:var(--forest);margin-bottom:22px;line-height:1.1}
+  .light h2{color:var(--forest)}
+  .dark{background:var(--forest);color:#fff}
+  .dark h2{color:#fff}
+  .light{background:var(--cream)}
+  .kicker{font-size:15px;letter-spacing:3px;text-transform:uppercase;color:var(--moss);font-weight:700;margin-bottom:14px}
+  .dark .kicker{color:var(--moss)}
+  p.lead{font-size:20px;line-height:1.5;max-width:900px;color:var(--muted)}
+  .dark p.lead{color:#dfe9d4}
+  .num{position:absolute;bottom:24px;right:34px;font-size:13px;color:var(--muted);opacity:.7}
+  .dark .num{color:#cfe0c0}
+  .tag{position:absolute;top:26px;left:8vw;font-size:13px;font-weight:700;letter-spacing:1px;color:var(--moss)}
+
+  /* title slide */
+  .title-wrap{display:flex;flex-direction:column;gap:20px}
+  .logo{font-size:88px}
+  .title-wrap h1{font-size:78px;line-height:1;color:#fff}
+  .title-wrap .sub{font-size:26px;color:var(--moss);font-weight:700}
+  .title-meta{margin-top:20px;font-size:16px;color:#cfe0c0;line-height:1.7}
+  .pill{display:inline-block;background:rgba(151,188,98,.22);color:#eaf4dd;padding:6px 16px;border-radius:999px;font-size:14px;font-weight:700;margin-right:8px}
+
+  /* generic grids */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:var(--white);border-radius:16px;padding:22px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+  .dark .card{background:rgba(255,255,255,.08);box-shadow:none}
+  .card .ic{font-size:38px;margin-bottom:10px}
+  .card h3{font-size:19px;margin-bottom:8px;color:var(--forest)}
+  .dark .card h3{color:var(--moss)}
+  .card p{font-size:15px;line-height:1.45;color:var(--muted)}
+  .dark .card p{color:#dbe7cd}
+
+  .stat{font-size:66px;font-weight:800;color:var(--forest);line-height:1;font-family:Cambria,serif}
+  .dark .stat{color:var(--moss)}
+  .stat-l{font-size:15px;color:var(--muted);margin-top:6px}
+  .dark .stat-l{color:#cfe0c0}
+
+  .flowrow{display:flex;align-items:stretch;gap:12px;flex-wrap:wrap;margin-top:10px}
+  .fbox{flex:1;min-width:120px;background:var(--moss-lt);border-radius:14px;padding:16px;text-align:center}
+  .fbox .ic{font-size:30px}
+  .fbox b{display:block;font-size:15px;margin-top:6px;color:var(--forest-dk)}
+  .fbox span{font-size:12px;color:var(--muted)}
+  .arrow{align-self:center;font-size:26px;color:var(--moss);font-weight:800}
+
+  .list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:6px}
+  .list li{display:flex;gap:14px;align-items:flex-start;font-size:17px;line-height:1.4}
+  .list .b{font-size:24px;line-height:1}
+  .list b{color:var(--forest)}
+  .dark .list b{color:var(--moss)}
+
+  .demo-box{background:rgba(255,255,255,.10);border:2px dashed var(--moss);border-radius:20px;padding:34px;max-width:820px}
+  .demo-box code{background:rgba(0,0,0,.25);padding:3px 9px;border-radius:6px;color:#eaf4dd;font-size:17px}
+  .alertcard{background:#fff4e2;border:1px solid #ffd591;border-radius:14px;padding:18px;color:#8a5a00;font-size:16px;font-weight:600}
+
+  .rubric{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+  .rline{display:flex;align-items:center;gap:14px}
+  .rline .bar{height:14px;border-radius:999px;background:var(--moss)}
+  .rline .lab{width:230px;font-size:15px;font-weight:600}
+  .rline .val{font-size:14px;color:var(--muted);font-weight:700}
+
+  .links{display:flex;flex-direction:column;gap:12px;font-size:19px;margin-top:8px}
+  .links div{color:#eaf4dd}
+  .links b{color:#fff}
+
+  @media print{
+    body{background:#fff}
+    .deck{height:auto;overflow:visible}
+    .slide{height:100vh;page-break-after:always;break-after:page}
+    .num{opacity:1}
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide dark">
+    <div class="title-wrap">
+      <div class="logo">🌱</div>
+      <h1>Kisan Alert</h1>
+      <div class="sub">Snap it. Speak it. Solve it.</div>
+      <p class="lead" style="max-width:760px">Every farmer's question becomes constituency intelligence — voice-and-photo AI crop advice in any Indian language, and a live disease map for their MP.</p>
+      <div class="title-meta">
+        <span class="pill">Challenge 4 · Smart Water, Crop &amp; Advisory</span>
+        <span class="pill">Solo build</span>
+        <div style="margin-top:14px">Build with AI: Code for Communities · Powered by Google Gemini + Firebase</div>
+      </div>
+    </div>
+    <div class="num">01</div>
+  </section>
+
+  <!-- 2 · PROBLEM -->
+  <section class="slide light">
+    <span class="tag">THE GROUND REALITY</span>
+    <h2>A farmer spots trouble in the field.<br/>Expert help is days away — if it comes at all.</h2>
+    <div class="grid3" style="margin-top:14px">
+      <div class="card"><div class="stat">1</div><div class="stat-l">agri-extension officer for every <b>~1,100 farmers</b> — advice rarely arrives in time</div></div>
+      <div class="card"><div class="stat">~50%</div><div class="stat-l">of rural adults can't comfortably read a text advisory or app menu</div></div>
+      <div class="card"><div class="stat">Days</div><div class="stat-l">lost between "something's wrong" and a correct diagnosis — pests and disease spread meanwhile</div></div>
+    </div>
+    <p class="lead" style="margin-top:26px">Existing apps assume a literate farmer with a smartphone and patience for menus. The people who need help most are the ones they exclude.</p>
+    <div class="num">02</div>
+  </section>
+
+  <!-- 3 · LIVE DEMO -->
+  <section class="slide dark">
+    <span class="tag" style="color:var(--moss)">DO NOT SKIP — RUN THIS LIVE</span>
+    <h2>Live demo</h2>
+    <div class="demo-box">
+      <p class="lead" style="color:#eaf4dd;max-width:100%">Open the app on a phone. Point it at a diseased leaf, hold the mic, and ask in Hindi: <em>"Meri fasal kyun kharab ho rahi hai?"</em></p>
+      <p class="lead" style="color:#eaf4dd;max-width:100%;margin-top:16px">In seconds it <b>speaks back</b> the diagnosis and fix — then a red pin lands on the MP's map.</p>
+      <p style="margin-top:20px;color:#cfe0c0;font-size:15px">Backup if venue Wi-Fi fails: open <code>?demo=1</code> for a cached golden run, or play the 90-second recording. The demo cannot die.</p>
+    </div>
+    <div class="num">03</div>
+  </section>
+
+  <!-- 4 · HOW THE FARMER EXPERIENCES IT -->
+  <section class="slide light">
+    <span class="tag">THE 60-SECOND WOW</span>
+    <h2>One photo. One voice note. One spoken answer.</h2>
+    <div class="flowrow">
+      <div class="fbox"><div class="ic">📷</div><b>Snap the leaf</b><span>camera, one tap</span></div>
+      <div class="arrow">→</div>
+      <div class="fbox"><div class="ic">🎤</div><b>Speak the problem</b><span>any Indic language</span></div>
+      <div class="arrow">→</div>
+      <div class="fbox"><div class="ic">✨</div><b>Gemini sees + hears</b><span>one multimodal call</span></div>
+      <div class="arrow">→</div>
+      <div class="fbox"><div class="ic">🔊</div><b>Hears the fix aloud</b><span>zero reading needed</span></div>
+    </div>
+    <ul class="list" style="margin-top:30px">
+      <li><span class="b">⚡</span><div><b>Do this now</b> — the single most urgent action, up front</div></li>
+      <li><span class="b">🌿</span><div><b>Low-cost remedy</b> under ₹200, locally available — then a chemical option only if needed</div></li>
+      <li><span class="b">🛡️</span><div><b>Prevent next time</b>, plus the nearest Krishi Vigyan Kendra to confirm</div></li>
+    </ul>
+    <div class="num">04</div>
+  </section>
+
+  <!-- 5 · ARCHITECTURE -->
+  <section class="slide light">
+    <span class="tag">UNDER THE HOOD · ALL GOOGLE</span>
+    <h2>One clean pipeline, built to demo and to scale</h2>
+    <div class="flowrow">
+      <div class="fbox"><div class="ic">📱</div><b>Firebase Hosting</b><span>static PWA</span></div>
+      <div class="arrow">→</div>
+      <div class="fbox"><div class="ic">🧠</div><b>Gemini (AI Studio)</b><span>image+audio → JSON</span></div>
+      <div class="arrow">→</div>
+      <div class="fbox"><div class="ic">🔊</div><b>Text-to-Speech</b><span>reply in local language</span></div>
+      <div class="arrow">→</div>
+      <div class="fbox"><div class="ic">🗺️</div><b>Firestore + Maps</b><span>live MP dashboard</span></div>
+    </div>
+    <div class="grid3" style="margin-top:28px">
+      <div class="card"><div class="ic">🛰️</div><h3>Grounded in field data</h3><p>Satellite NDVI, soil moisture &amp; weather per pincode are injected into every prompt (seeded now → Earth Engine + BigQuery next).</p></div>
+      <div class="card"><div class="ic">🎯</div><h3>One call, one failure point</h3><p>Voice audio + photo go into a single Gemini request — the strongest technical claim and the most reliable path on stage.</p></div>
+      <div class="card"><div class="ic">🔒</div><h3>Safe by design</h3><p>Low temperature, honest low-confidence on unclear photos, never invents pesticide doses, always routes to a human KVK.</p></div>
+    </div>
+    <div class="num">05</div>
+  </section>
+
+  <!-- 6 · INCLUSIVITY -->
+  <section class="slide dark">
+    <span class="tag" style="color:var(--moss)">INCLUSIVITY BY DESIGN · THE 15% MOST TEAMS IGNORE</span>
+    <h2>Built for the farmer everyone else's app leaves out</h2>
+    <div class="grid3" style="margin-top:8px">
+      <div class="card"><div class="ic">🎤</div><h3>Voice in, voice out</h3><p>Zero typing, zero reading. Speak; hear the answer back.</p></div>
+      <div class="card"><div class="ic">🗣️</div><h3>9 Indic languages</h3><p>Hindi, Marathi, Tamil, Telugu, Bengali, Punjabi, Kannada, Gujarati, English.</p></div>
+      <div class="card"><div class="ic">🔆</div><h3>Low-literacy UI</h3><p>Big touch targets, colour-coded icon cards, no dense text.</p></div>
+      <div class="card"><div class="ic">📴</div><h3>Works after first load</h3><p>PWA-friendly; golden mode runs with no network at all.</p></div>
+      <div class="card"><div class="ic">📞</div><h3>Feature-phone ready</h3><p>Roadmap: toll-free IVR via Dialogflow for ₹1,500 phones.</p></div>
+      <div class="card"><div class="ic">👵</div><h3>Elder-friendly</h3><p>High contrast, large fonts, spoken guidance throughout.</p></div>
+    </div>
+    <div class="num">06</div>
+  </section>
+
+  <!-- 7 · MP DASHBOARD -->
+  <section class="slide light">
+    <span class="tag">WHY AN MP CARES</span>
+    <h2>Every question becomes early-warning intelligence</h2>
+    <div class="grid2">
+      <div>
+        <p class="lead">Each advisory drops an anonymized pin on the constituency map. When pins cluster, the office gets an <b>outbreak alert</b> — and can send a KVK team or relief funds to the exact block <em>before</em> a local problem becomes a crisis.</p>
+        <ul class="list" style="margin-top:22px">
+          <li><span class="b">📍</span><div>Real-time, ground-truth crop health by village</div></li>
+          <li><span class="b">🎯</span><div>Target MPLADS spending where evidence shows need</div></li>
+          <li><span class="b">🤝</span><div>Augments extension officers — never replaces them</div></li>
+        </ul>
+      </div>
+      <div class="alertcard">⚠️ <b>Outbreak alert:</b> 7 reports of <b>Soybean — Yellow Mosaic Virus</b> around Ausa block in the last 3 hours. Recommend dispatching KVK Latur team.</div>
+    </div>
+    <div class="num">07</div>
+  </section>
+
+  <!-- 8 · SCALABILITY -->
+  <section class="slide light">
+    <span class="tag">DEPLOYMENT &amp; SCALE</span>
+    <h2>Lakhs of farmers, for pennies</h2>
+    <div class="grid3" style="margin-top:10px">
+      <div class="card"><div class="stat">₹0.02</div><div class="stat-l">approx. cost per AI advisory on Gemini Flash — serverless, pay-per-use</div></div>
+      <div class="card"><div class="stat">0</div><div class="stat-l">servers to manage — static front end on CDN + managed Firestore</div></div>
+      <div class="card"><div class="stat">1</div><div class="stat-l">config change to roll out to a new constituency — data isolated by configuration, not code</div></div>
+    </div>
+    <p class="lead" style="margin-top:26px">Static hosting is CDN-cached and near-free. Every AI request is a stateless serverless call that scales elastically. National rollout is an operational task, not an engineering rewrite.</p>
+    <div class="num">08</div>
+  </section>
+
+  <!-- 9 · IMPACT + RUBRIC -->
+  <section class="slide dark">
+    <span class="tag" style="color:var(--moss)">REAL IMPACT · SCORED AGAINST THE RUBRIC</span>
+    <h2>Designed to win where the points are</h2>
+    <div class="rubric">
+      <div class="rline"><span class="lab">AI / technical (25%)</span><span class="bar" style="width:340px"></span><span class="val">multimodal image+audio Gemini</span></div>
+      <div class="rline"><span class="lab">Inclusivity / access (15%)</span><span class="bar" style="width:300px"></span><span class="val">voice-first, 9 languages, offline</span></div>
+      <div class="rline"><span class="lab">Impact &amp; fitment</span><span class="bar" style="width:320px"></span><span class="val">farmer help → MP intelligence</span></div>
+      <div class="rline"><span class="lab">Deployment / scale</span><span class="bar" style="width:290px"></span><span class="val">serverless, pennies per advisory</span></div>
+      <div class="rline"><span class="lab">Presentation</span><span class="bar" style="width:300px"></span><span class="val">demo-first, can't-fail backup</span></div>
+    </div>
+    <div class="num">09</div>
+  </section>
+
+  <!-- 10 · ROADMAP -->
+  <section class="slide light">
+    <span class="tag">ROADMAP</span>
+    <h2>From tonight's prototype to a lifeline</h2>
+    <div class="grid3">
+      <div class="card"><div class="ic">🛰️</div><h3>Live field data</h3><p>Swap seeded values for real Google Earth Engine NDVI / soil moisture + BigQuery weather.</p></div>
+      <div class="card"><div class="ic">📞</div><h3>Toll-free IVR</h3><p>Dialogflow phone line so any feature phone reaches the same Gemini engine — no app, no internet.</p></div>
+      <div class="card"><div class="ic">🏛️</div><h3>Scheme &amp; KVK linkage</h3><p>Auto-match each farmer to eligible government schemes and the nearest extension officer.</p></div>
+    </div>
+    <p class="lead" style="margin-top:26px">Production hardening: move the API key behind Cloud Functions, ground advice in official ICAR/state advisories, add human-in-the-loop review for low-confidence cases.</p>
+    <div class="num">10</div>
+  </section>
+
+  <!-- 11 · WHY IT'S DIFFERENT -->
+  <section class="slide light">
+    <span class="tag">WHY THIS, NOT THE OBVIOUS BUILD</span>
+    <h2>Not a chatbot. Not a leaf classifier.</h2>
+    <div class="grid2">
+      <div class="card"><h3 style="color:var(--muted)">The obvious version</h3><p style="font-size:16px">Upload a photo → get a disease name in English text on a screen. Assumes literacy, a smartphone, and stops at the individual.</p></div>
+      <div class="card" style="background:var(--moss-lt)"><h3>Kisan Alert</h3><p style="font-size:16px">Photo <b>+ spoken question</b> → spoken, actionable fix in the farmer's language → <b>aggregated into live MP intelligence</b>. Reaches the excluded, and helps a whole constituency.</p></div>
+    </div>
+    <p class="lead" style="margin-top:26px">Grounded in field data, honest about uncertainty, and safe with chemicals — the details judges probe, answered by design.</p>
+    <div class="num">11</div>
+  </section>
+
+  <!-- 12 · CLOSE -->
+  <section class="slide dark">
+    <div class="logo">🌱</div>
+    <h1 style="font-size:60px;color:#fff;margin:10px 0 6px">Kisan Alert</h1>
+    <div class="sub" style="color:var(--moss);font-size:22px;font-weight:700">Snap it. Speak it. Solve it.</div>
+    <div class="links">
+      <div><b>🔗 Live demo:</b> paste-your-firebase-url.web.app</div>
+      <div><b>💻 GitHub:</b> github.com/your-handle/kisan-alert</div>
+      <div><b>🎥 Backup video:</b> paste-your-link</div>
+      <div style="margin-top:8px;color:#cfe0c0;font-size:15px">Built solo, in one night, on Google Gemini + Firebase.</div>
+    </div>
+    <div class="num">12</div>
+  </section>
+
+</div>
+<script>
+  const deck=document.querySelector('.deck');
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  function go(n){ i=Math.max(0,Math.min(slides.length-1,n)); slides[i].scrollIntoView({behavior:'smooth'}); }
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(i+1);}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(i-1);}
+    if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+    if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.();
+  });
+  // keep index in sync when scrolling manually
+  new IntersectionObserver((es)=>es.forEach(en=>{if(en.isIntersecting)i=slides.indexOf(en.target);}),{threshold:.6})
+    .observe&&slides.forEach(s=>new IntersectionObserver((es)=>es.forEach(en=>{if(en.isIntersecting)i=slides.indexOf(en.target);}),{threshold:.6}).observe(s));
+</script>
+</body>
+</html>

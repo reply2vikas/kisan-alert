@@ -1,0 +1,6 @@
+# Never commit a real billable key. Copy config.js -> config.local.js if you prefer.
+config.local.js
+.firebase/
+node_modules/
+*.log
+.DS_Store

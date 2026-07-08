@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kisan Alert — AI crop advisory for every farmer</title>
+  <meta name="description" content="Voice + photo AI crop advisory in Indic languages, with a live constituency disease-hotspot dashboard for MPs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="leaf">🌱</span>
+      <div>
+        <h1>Kisan Alert</h1>
+        <p class="tagline">Snap it. Speak it. Solve it.</p>
+      </div>
+    </div>
+    <nav class="tabs">
+      <button class="tab active" data-view="farmer">👩‍🌾 Farmer</button>
+      <button class="tab" data-view="mp">🏛️ MP Dashboard</button>
+    </nav>
+  </header>
+
+  <!-- ================= FARMER VIEW ================= -->
+  <main id="view-farmer" class="view active">
+    <section class="card intro">
+      <p>Point your phone at a sick crop and speak in your language. You'll hear the answer back in seconds — no typing, no reading needed.</p>
+    </section>
+
+    <section class="card">
+      <div class="row">
+        <label class="field">
+          <span>Language</span>
+          <select id="lang">
+            <option value="Hindi" data-loc="hi-IN">हिन्दी Hindi</option>
+            <option value="English" data-loc="en-IN">English</option>
+            <option value="Marathi" data-loc="mr-IN">मराठी Marathi</option>
+            <option value="Tamil" data-loc="ta-IN">தமிழ் Tamil</option>
+            <option value="Telugu" data-loc="te-IN">తెలుగు Telugu</option>
+            <option value="Bengali" data-loc="bn-IN">বাংলা Bengali</option>
+            <option value="Punjabi" data-loc="pa-IN">ਪੰਜਾਬੀ Punjabi</option>
+            <option value="Kannada" data-loc="kn-IN">ಕನ್ನಡ Kannada</option>
+            <option value="Gujarati" data-loc="gu-IN">ગુજરાતી Gujarati</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Your area (pincode)</span>
+          <select id="pincode"><!-- filled by JS from seeded data --></select>
+        </label>
+      </div>
+
+      <div class="big-actions">
+        <label class="big-btn camera">
+          📷 <span>Photo of crop</span>
+          <input type="file" id="photo" accept="image/*" capture="environment" hidden />
+        </label>
+        <button class="big-btn mic" id="micBtn">🎤 <span>Speak / Record</span></button>
+      </div>
+
+      <div id="photoPreview" class="preview hidden">
+        <img id="photoImg" alt="crop preview" />
+      </div>
+
+      <div class="row">
+        <input type="text" id="query" placeholder="…or type your problem (optional)" />
+      </div>
+
+      <div class="row">
+        <button class="primary" id="diagnoseBtn">Get advice →</button>
+        <button class="ghost" id="sampleBtn">Load sample (demo backup)</button>
+      </div>
+      <p id="status" class="status"></p>
+    </section>
+
+    <!-- Advisory result -->
+    <section id="result" class="card result hidden">
+      <div class="result-head">
+        <h2 id="diagnosisTitle">—</h2>
+        <div class="badges">
+          <span id="confidenceBadge" class="badge conf">—</span>
+          <span id="severityBadge" class="badge">—</span>
+        </div>
+      </div>
+      <div class="do-now" id="doNow"><span class="do-ic">⚡</span><div><h3>Do this now</h3><p id="immediateAction">—</p></div></div>
+      <div class="icon-cards">
+        <div class="icon-card fert"><div class="ic">🌿</div><h3>Low-cost fix</h3><p id="lowCost">—</p></div>
+        <div class="icon-card pest"><div class="ic">🧪</div><h3>If needed (chemical)</h3><p id="chemical">—</p></div>
+        <div class="icon-card water"><div class="ic">🛡️</div><h3>Prevent next time</h3><p id="prevention">—</p></div>
+      </div>
+      <div class="context-strip" id="contextStrip"></div>
+      <div class="scheme" id="schemeBox"></div>
+      <div class="row">
+        <button class="primary" id="speakBtn">🔊 Listen</button>
+        <button class="ghost" id="reportBtn">📍 Send to MP dashboard</button>
+      </div>
+      <details class="raw"><summary>Full advisory text</summary><p id="fullText">—</p></details>
+    </section>
+  </main>
+
+  <!-- ================= MP DASHBOARD VIEW ================= -->
+  <main id="view-mp" class="view">
+    <section class="card">
+      <h2>Constituency crop-health monitor</h2>
+      <p class="muted">Every farmer query drops an anonymized pin here. Clusters = an outbreak your office can act on before it spreads.</p>
+      <div id="alertBanner" class="alert-banner hidden"></div>
+      <div class="stats" id="stats"></div>
+    </section>
+    <section class="card">
+      <div id="map" class="map"></div>
+      <div class="legend"><span class="dot high"></span> High <span class="dot medium"></span> Medium <span class="dot low"></span> Low</div>
+    </section>
+    <section class="card">
+      <h3>Latest reports</h3>
+      <div id="reportList" class="report-list"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>Built with Google Gemini + Firebase · "Build with AI: Code for Communities"</span>
+  </footer>
+
+  <script src="config.js"></script>
+  <!-- Real keys live here (gitignored). Ignored if the file doesn't exist. -->
+  <script src="config.local.js" onerror="void 0"></script>
+  <script>
+    // Load Google Maps JS only if a key is present; falls back to offline map otherwise.
+    (function () {
+      var k = (window.KISAN_CONFIG || {}).GOOGLE_MAPS_API_KEY;
+      if (!k) return;
+      window.__onMapsReady = function () { if (window.__kisanRenderDashboard) window.__kisanRenderDashboard(); };
+      var s = document.createElement("script");
+      s.src = "https://maps.googleapis.com/maps/api/js?key=" + encodeURIComponent(k) + "&callback=__onMapsReady&loading=async";
+      s.async = true;
+      s.onerror = function () { console.warn("Google Maps failed to load — using offline map."); };
+      document.head.appendChild(s);
+    })();
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
