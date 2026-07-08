@@ -155,13 +155,6 @@ Reply ONLY with valid JSON, no markdown:
 Rules: every field except map_label_en in the farmer's own language. map_label_en is a short English label for a map (e.g. "Soybean — Yellow Mosaic Virus"). speak_text = warm, spoken-style, <80 words, actionable, no jargon; assumes a low-literacy listener. If the image is unclear or not a crop, say so honestly in speak_text and set confidence "low". Prefer remedies costing <₹200 and locally available. Never invent pesticide dosages; give label-rate guidance and point to the nearest KVK.`;
 
 async function callGemini(lang, pin) {
-  const key = (CFG.GEMINI_API_KEY || "").trim();
-  // Valid Gemini keys start with "AIza" (standard) or "AQ." (new auth key bound to a service account).
-  const looksFake = !key || key.includes("PASTE_YOUR") || key.includes("your-ai-studio-key") || !(key.startsWith("AIza") || key.startsWith("AQ.")) || key.length < 20;
-  if (looksFake) throw new Error("No valid Gemini key set. Get one at aistudio.google.com/app/apikey (starts with 'AIza' or 'AQ.'). Showing sample for now.");
-  const model = CFG.GEMINI_MODEL || "gemini-2.0-flash";
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
-
   const ctx = buildContext(pin);
   const userQ = ($("query").value || state.voiceText || "").trim();
   const parts = [{
@@ -174,13 +167,27 @@ async function callGemini(lang, pin) {
   if (state.audioBase64 && GEMINI_AUDIO_OK.includes(state.audioMime)) {
     parts.push({ inline_data: { mime_type: state.audioMime, data: state.audioBase64 } });
   }
-
   const body = JSON.stringify({
     system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
     contents: [{ parts }],
     generationConfig: { temperature: 0.3, responseMimeType: "application/json" },
   });
-  // Exponential backoff with jitter for transient 429 (rate limit) / 503.
+
+  // Path A — Vertex AI proxy (spends your GCP credits; no API key in the browser).
+  if (CFG.VERTEX_PROXY_URL) {
+    const res = await fetch(CFG.VERTEX_PROXY_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body });
+    if (!res.ok) throw new Error("Vertex proxy " + res.status + ": " + (await res.text()).slice(0, 160));
+    const data = await res.json();
+    const txt = data?.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
+    return JSON.parse(txt);
+  }
+
+  // Path B — Google AI Studio (needs a Gemini API key WITH prepaid quota).
+  const key = (CFG.GEMINI_API_KEY || "").trim();
+  const looksFake = !key || key.includes("PASTE_YOUR") || key.includes("your-ai-studio-key") || !(key.startsWith("AIza") || key.startsWith("AQ.")) || key.length < 20;
+  if (looksFake) throw new Error("No valid Gemini key or Vertex proxy set. Showing sample for now.");
+  const model = CFG.GEMINI_MODEL || "gemini-2.0-flash";
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
   let res;
   for (let attempt = 0; attempt < 3; attempt++) {
     res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": key }, body });
@@ -188,7 +195,7 @@ async function callGemini(lang, pin) {
     if (attempt < 2) { setStatus("Rate limited — retrying in a moment…"); await new Promise(r => setTimeout(r, 1500 * (2 ** attempt) + Math.random() * 400)); }
   }
   if (!res.ok) {
-    if (res.status === 429) throw new Error("Gemini quota/rate limit (429). Free-tier cap hit — wait a minute, enable billing, or just use demo mode. Showing sample.");
+    if (res.status === 429) throw new Error("Gemini quota/rate limit (429). Prepaid cap hit — use the Vertex proxy or demo mode. Showing sample.");
     throw new Error("Gemini API " + res.status + ": " + (await res.text()).slice(0, 160));
   }
   const data = await res.json();

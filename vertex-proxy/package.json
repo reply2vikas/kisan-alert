@@ -1,0 +1,9 @@
+{
+  "name": "kisan-vertex-proxy",
+  "version": "1.0.0",
+  "description": "Cloud Function proxy: browser -> Vertex AI Gemini (uses GCP credits).",
+  "main": "index.js",
+  "dependencies": {
+    "google-auth-library": "^9.14.1"
+  }
+}

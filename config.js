@@ -7,7 +7,13 @@
 // ============================================================
 
 window.KISAN_CONFIG = {
-  // Get a free key from Google AI Studio -> https://aistudio.google.com/app/apikey
+  // OPTION 1 — Vertex AI proxy URL (recommended: uses your GCP credits).
+  // Deploy vertex-proxy/ (see vertex-proxy/DEPLOY.md), paste its URL here or
+  // in config.local.js. When set, the app uses Vertex and ignores the key below.
+  VERTEX_PROXY_URL: "https://us-central1-kisan-alert-vk-2026.cloudfunctions.net/kisan-gemini",
+
+  // OPTION 2 — Google AI Studio key (needs prepaid quota).
+  // Get one at https://aistudio.google.com/app/apikey (starts with AIza or AQ.)
   GEMINI_API_KEY: "PASTE_YOUR_AI_STUDIO_KEY_HERE",
 
   // Gemini model. gemini-2.0-flash is fast + multimodal (image+audio+text).

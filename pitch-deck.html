@@ -101,7 +101,7 @@
       <div class="title-meta">
         <span class="pill">Challenge 4 · Smart Water, Crop &amp; Advisory</span>
         <span class="pill">Solo build</span>
-        <div style="margin-top:14px">Build with AI: Code for Communities · Powered by Google Gemini + Firebase</div>
+        <div style="margin-top:14px">Build with AI: Code for Communities · Powered by Google Gemini · Vertex AI · Firebase</div>
       </div>
     </div>
     <div class="num">01</div>
@@ -126,8 +126,10 @@
     <h2>Live demo</h2>
     <div class="demo-box">
       <p class="lead" style="color:#eaf4dd;max-width:100%">Open the app on a phone. Point it at a diseased leaf, hold the mic, and ask in Hindi: <em>"Meri fasal kyun kharab ho rahi hai?"</em></p>
-      <p class="lead" style="color:#eaf4dd;max-width:100%;margin-top:16px">In seconds it <b>speaks back</b> the diagnosis and fix — then a red pin lands on the MP's map.</p>
-      <p style="margin-top:20px;color:#cfe0c0;font-size:15px">Backup if venue Wi-Fi fails: open <code>?demo=1</code> for a cached golden run, or play the 90-second recording. The demo cannot die.</p>
+      <p class="lead" style="color:#eaf4dd;max-width:100%;margin-top:16px">In seconds it <b>speaks back</b> the diagnosis and fix — generated live by Gemini 2.5 on Vertex AI — then a red pin lands on the MP's map.</p>
+      <p style="margin-top:18px;color:#eaf4dd;font-size:16px">▶︎ Watch (90s): <code>youtu.be/3-IpT-83qEI</code></p>
+      <p style="margin-top:8px;color:#eaf4dd;font-size:16px">▶︎ Try it live: <code>reply2vikas.github.io/kisan-alert/?demo=1</code></p>
+      <p style="margin-top:12px;color:#cfe0c0;font-size:15px">Backup if venue Wi-Fi fails: <code>?demo=1</code> replays a cached run, or play the recording. The demo cannot die.</p>
     </div>
     <div class="num">03</div>
   </section>
@@ -160,7 +162,7 @@
     <div class="flowrow">
       <div class="fbox"><div class="ic">📱</div><b>Firebase Hosting</b><span>static PWA</span></div>
       <div class="arrow">→</div>
-      <div class="fbox"><div class="ic">🧠</div><b>Gemini (AI Studio)</b><span>image+audio → JSON</span></div>
+      <div class="fbox"><div class="ic">🧠</div><b>Gemini 2.5 · Vertex AI</b><span>image+audio → JSON</span></div>
       <div class="arrow">→</div>
       <div class="fbox"><div class="ic">🔊</div><b>Text-to-Speech</b><span>reply in local language</span></div>
       <div class="arrow">→</div>
@@ -243,7 +245,7 @@
       <div class="card"><div class="ic">📞</div><h3>Toll-free IVR</h3><p>Dialogflow phone line so any feature phone reaches the same Gemini engine — no app, no internet.</p></div>
       <div class="card"><div class="ic">🏛️</div><h3>Scheme &amp; KVK linkage</h3><p>Auto-match each farmer to eligible government schemes and the nearest extension officer.</p></div>
     </div>
-    <p class="lead" style="margin-top:26px">Production hardening: move the API key behind Cloud Functions, ground advice in official ICAR/state advisories, add human-in-the-loop review for low-confidence cases.</p>
+    <p class="lead" style="margin-top:26px">Already production-shaped: AI calls run server-side through a Cloud Function proxy on Vertex AI — no key in the browser. Next: ground advice in official ICAR/state advisories and add human review for low-confidence cases.</p>
     <div class="num">10</div>
   </section>
 
@@ -265,10 +267,10 @@
     <h1 style="font-size:60px;color:#fff;margin:10px 0 6px">Kisan Alert</h1>
     <div class="sub" style="color:var(--moss);font-size:22px;font-weight:700">Snap it. Speak it. Solve it.</div>
     <div class="links">
-      <div><b>🔗 Live demo:</b> paste-your-firebase-url.web.app</div>
-      <div><b>💻 GitHub:</b> github.com/your-handle/kisan-alert</div>
-      <div><b>🎥 Backup video:</b> paste-your-link</div>
-      <div style="margin-top:8px;color:#cfe0c0;font-size:15px">Built solo, in one night, on Google Gemini + Firebase.</div>
+      <div><b>🔗 Live demo:</b> reply2vikas.github.io/kisan-alert/?demo=1</div>
+      <div><b>💻 GitHub:</b> github.com/reply2vikas/kisan-alert</div>
+      <div><b>🎥 Demo video:</b> youtu.be/3-IpT-83qEI</div>
+      <div style="margin-top:8px;color:#cfe0c0;font-size:15px">Built solo, in one night, on Google Gemini · Vertex AI · Firebase.</div>
     </div>
     <div class="num">12</div>
   </section>
