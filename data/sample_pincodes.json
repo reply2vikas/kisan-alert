@@ -1,19 +1,6 @@
 {
-  "_comment": "Seeded satellite + weather context, pre-fetched so the demo never depends on a live Earth Engine / weather call. In production these fields come from Google Earth Engine (NDVI, soil moisture) + BigQuery/IMD weather. Values here are realistic samples for 5 pincodes.",
+  "_comment": "Seeded satellite + weather context, pre-fetched so the demo never depends on a live Earth Engine / weather call. In production these fields come from Google Earth Engine (NDVI, soil moisture) + BigQuery/IMD weather. Latur is first so the default pincode matches the seeded report cluster (a clean map).",
   "pincodes": {
-    "144001": {
-      "district": "Jalandhar, Punjab",
-      "lat": 31.326,
-      "lng": 75.576,
-      "ndvi": 0.42,
-      "soil_moisture_pct": 18,
-      "rainfall_7d_mm": 2,
-      "temp_c": 34,
-      "humidity_pct": 71,
-      "primary_crop": "Wheat",
-      "nearest_krishi_kendra": "KVK Jalandhar, Nurmahal Road",
-      "local_scheme": "Punjab Pani Bachao Paisa Kamao (irrigation subsidy)"
-    },
     "413512": {
       "district": "Latur, Maharashtra",
       "lat": 18.408,
@@ -26,6 +13,19 @@
       "primary_crop": "Soybean",
       "nearest_krishi_kendra": "KVK Latur, Ausa Road",
       "local_scheme": "Jalyukt Shivar (water conservation)"
+    },
+    "144001": {
+      "district": "Jalandhar, Punjab",
+      "lat": 31.326,
+      "lng": 75.576,
+      "ndvi": 0.42,
+      "soil_moisture_pct": 18,
+      "rainfall_7d_mm": 2,
+      "temp_c": 34,
+      "humidity_pct": 71,
+      "primary_crop": "Wheat",
+      "nearest_krishi_kendra": "KVK Jalandhar, Nurmahal Road",
+      "local_scheme": "Punjab Pani Bachao Paisa Kamao (irrigation subsidy)"
     },
     "522001": {
       "district": "Guntur, Andhra Pradesh",
