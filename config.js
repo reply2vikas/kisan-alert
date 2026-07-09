@@ -21,7 +21,7 @@ window.KISAN_CONFIG = {
 
   // OPTIONAL — Google Maps JS API key (browser keys start with "AIza").
   // Leave blank to use the built-in offline map fallback (always works).
-  GOOGLE_MAPS_API_KEY: "",
+  GOOGLE_MAPS_API_KEY: "AQ.Ab8RN6LGRuMfXIVSQ1arSW4fJ5TI4-WMVyaVrINqPQC1QXcU2g",
 
   // OPTIONAL — Firebase web config for Firestore. null = run in-memory.
   FIREBASE: null,
