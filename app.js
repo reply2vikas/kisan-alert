@@ -364,7 +364,7 @@ function drawMap(reports) {
      </circle>`).join("");
   el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="100%" style="background:#eef3ea">
     <rect x="0" y="0" width="${W}" height="${H}" fill="#e8f0e4"/>
-    <text x="12" y="24" font-size="12" fill="#5c6b5e">Constituency view (offline map). Add a Google Maps key in config.js for the live basemap.</text>
+    <text x="12" y="24" font-size="12" fill="#5c6b5e">Constituency hotspot map · live farmer reports (severity-coded)</text>
     ${dots}
   </svg>`;
 }
